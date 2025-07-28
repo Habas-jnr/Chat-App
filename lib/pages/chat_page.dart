@@ -110,6 +110,9 @@ class _ChatPageState extends State<ChatPage> {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Text("Loading");
         }
+        if (snapshot.data == null) {
+          return Container();
+        }
 
         return ListView(
           controller: _scrollController,
@@ -152,12 +155,15 @@ class _ChatPageState extends State<ChatPage> {
               obscureText: false,
             ),
           ),
-          Container(
-            decoration: const BoxDecoration(
-              color: Colors.green,
-              shape: BoxShape.circle,
+          Padding(
+            padding: const EdgeInsets.only(right: 20),
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.green,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: IconButton(onPressed: sendMessage, icon: Icon(Icons.send)),
             ),
-            child: IconButton(onPressed: sendMessage, icon: Icon(Icons.send)),
           ),
         ],
       ),

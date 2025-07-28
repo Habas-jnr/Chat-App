@@ -1,10 +1,12 @@
 import 'package:chat_app/Components/my_button.dart';
 import 'package:chat_app/Components/my_textfield.dart';
 import 'package:chat_app/services/auth/auth_services.dart';
+import 'package:chat_app/theme/theme_provider.dart';
 // import 'package:chat_app/helper/helper_function.dart';
 // import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class RegisterPage extends StatefulWidget {
   final Function()? onTap;
@@ -21,24 +23,14 @@ class _RegisterPageState extends State<RegisterPage> {
   final confirmPasswordController = TextEditingController();
 
   void signUp(BuildContext context) {
-    // //loading cirlce
-    // showDialog(
-    //   context: context,
-    //   builder: (context) => Center(child: CircularProgressIndicator()),
-    // );
-    // if (passwordController.text != confirmPasswordController.text) {
-    //   //pop loading cirlce
-    //   Navigator.pop(context);
-
-    //   displayMessageToUser("Password don't match", context);
-    // }
-
-    // //try creating the user
-    // try {
-    //   //creating the user
-    //   UserCredential? userCredential =FirebaseAuth.instance.createUserWithEmailAndPassword(email: emailController.text, password: passwordController.text);
-    // }
     final auth = AuthServices();
+    showDialog(
+      context: context,
+      builder:
+          (context) => Center(
+            child: CircularProgressIndicator(color: Colors.deepPurple),
+          ),
+    );
 
     if (passwordController.text == confirmPasswordController.text) {
       try {
@@ -46,13 +38,16 @@ class _RegisterPageState extends State<RegisterPage> {
           emailController.text,
           passwordController.text,
         );
+        Navigator.pop(context);
       } catch (e) {
+        Navigator.pop(context);
         showDialog(
           context: context,
           builder: (context) => AlertDialog(title: Text(e.toString())),
         );
       }
     } else {
+      Navigator.pop(context);
       showDialog(
         context: context,
         builder:
@@ -72,14 +67,9 @@ class _RegisterPageState extends State<RegisterPage> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("password dont match"),
+                          Text("Password don't match"),
 
-                          Text(
-                            "Kindly recheck your password",
-                            style: TextStyle(
-                              color: Theme.of(context).colorScheme.primary,
-                            ),
-                          ),
+                          Text("Kindly recheck your password"),
                         ],
                       ),
                       GestureDetector(

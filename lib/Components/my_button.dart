@@ -1,4 +1,6 @@
+import 'package:chat_app/theme/theme_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class MyButton extends StatelessWidget {
   final String text;
@@ -7,6 +9,7 @@ class MyButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isDarkMode = Provider.of<ThemeProvider>(context).isDarkMode;
     return GestureDetector(
       onTap: onTap,
       child: Padding(

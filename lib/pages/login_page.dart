@@ -8,11 +8,20 @@ class LoginPage extends StatelessWidget {
   LoginPage({super.key, required this.onTap});
 
   final emailController = TextEditingController();
+
   final passwordController = TextEditingController();
 
   void signIn(BuildContext context) async {
     //instance
     final authServices = AuthServices();
+
+    showDialog(
+      context: context,
+      builder:
+          (context) => Center(
+            child: CircularProgressIndicator(color: Colors.deepPurple),
+          ),
+    );
 
     //try login
     try {
@@ -20,8 +29,14 @@ class LoginPage extends StatelessWidget {
         emailController.text,
         passwordController.text,
       );
+
+      // ignore: use_build_context_synchronously
+      Navigator.pop(context);
     } catch (e) {
+      // ignore: use_build_context_synchronously
+      Navigator.pop(context);
       showDialog(
+        // ignore: use_build_context_synchronously
         context: context,
         builder:
             (context) => AlertDialog(
@@ -30,8 +45,6 @@ class LoginPage extends StatelessWidget {
             ),
       );
     }
-
-    //catch error
   }
 
   @override
