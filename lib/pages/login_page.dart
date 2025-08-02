@@ -15,14 +15,6 @@ class LoginPage extends StatelessWidget {
     //instance
     final authServices = AuthServices();
 
-    showDialog(
-      context: context,
-      builder:
-          (context) => Center(
-            child: CircularProgressIndicator(color: Colors.deepPurple),
-          ),
-    );
-
     //try login
     try {
       await authServices.signWithEmailPassword(
@@ -31,10 +23,9 @@ class LoginPage extends StatelessWidget {
       );
 
       // ignore: use_build_context_synchronously
-      Navigator.pop(context);
     } catch (e) {
       // ignore: use_build_context_synchronously
-      Navigator.pop(context);
+
       showDialog(
         // ignore: use_build_context_synchronously
         context: context,

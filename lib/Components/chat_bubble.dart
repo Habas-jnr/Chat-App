@@ -16,23 +16,29 @@ class ChatBubble extends StatelessWidget {
     bool isDarkMode =
         Provider.of<ThemeProvider>(context, listen: false).isDarkMode;
 
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
-        color:
-            isCurrentUser
-                ? (isDarkMode ? Colors.green.shade600 : Colors.grey.shade500)
-                : (isDarkMode ? Colors.grey.shade800 : Colors.grey.shade200),
-      ),
-      padding: EdgeInsets.all(10),
-      margin: EdgeInsets.symmetric(horizontal: 15, vertical: 2.5),
-      child: Text(
-        message,
-        style: TextStyle(
+    return Padding(
+      padding:
+          isCurrentUser
+              ? EdgeInsets.only(left: 35)
+              : EdgeInsets.only(right: 35),
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
           color:
               isCurrentUser
-                  ? Colors.white
-                  : (isDarkMode ? Colors.white : Colors.black),
+                  ? (isDarkMode ? Colors.green.shade600 : Colors.grey.shade500)
+                  : (isDarkMode ? Colors.grey.shade800 : Colors.grey.shade200),
+        ),
+        padding: EdgeInsets.all(10),
+        margin: EdgeInsets.symmetric(horizontal: 15, vertical: 2.5),
+        child: Text(
+          message,
+          style: TextStyle(
+            color:
+                isCurrentUser
+                    ? Colors.white
+                    : (isDarkMode ? Colors.white : Colors.black),
+          ),
         ),
       ),
     );

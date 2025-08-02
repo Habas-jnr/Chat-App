@@ -2,8 +2,10 @@ import 'package:chat_app/Components/chat_bubble.dart';
 import 'package:chat_app/Components/my_textfield.dart';
 import 'package:chat_app/services/auth/auth_services.dart';
 import 'package:chat_app/services/auth/chat/chat_services.dart';
+import 'package:chat_app/theme/theme_provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ChatPage extends StatefulWidget {
   final String recieverEmail;
@@ -80,15 +82,21 @@ class _ChatPageState extends State<ChatPage> {
 
   @override
   Widget build(BuildContext context) {
+    bool isDarkMode = Provider.of<ThemeProvider>(context).isDarkMode;
+
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        foregroundColor: Colors.grey.shade800,
-        elevation: 0,
-        title: Text(widget.recieverEmail),
+        backgroundColor: isDarkMode ? Colors.green.shade800 : Colors.grey,
+        foregroundColor: isDarkMode ? Colors.grey[1000] : Colors.grey[900],
+        elevation: 5,
+        title: Text(
+          widget.recieverEmail,
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
       ),
       body: Column(
         children: [
+          SizedBox(height: 25),
           //display all messages
           Expanded(child: _buildMessageList()),
           _buildUserInput(),
